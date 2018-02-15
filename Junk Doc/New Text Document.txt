@@ -1,0 +1,131 @@
+import java.math.BigInteger; 
+import java.util.Random;
+import java.io.*;
+  
+public class RSA { 
+
+    private BigInteger p; 
+    private BigInteger q; 
+private BigInteger t;
+private BigInteger s;
+
+private BigInteger db;
+
+    private BigInteger N; 
+private BigInteger M;
+
+    private BigInteger phi; 
+private BigInteger lamla;
+
+    private BigInteger e; 
+    private BigInteger d; 
+
+private BigInteger g=M+1;
+
+private BigInteger mu; 
+
+    private int bitlength = 1024; 
+    private int blocksize = 256; //blocksize in byte 
+     
+private Random r; 
+
+
+ public MREA() { 
+        r = new Random(); 
+        p = BigInteger.probablePrime(bitlength, r); 
+        q = BigInteger.probablePrime(bitlength, r); 
+	s = BigInteger.probablePrime(bitlength, r); 
+	t = BigInteger.probablePrime(bitlength, r);  
+       N = p.multiply(q); 
+           
+        phi = p.subtract(BigInteger.ONE).multiply(q.subtract(BigInteger.ONE)); 
+	lamla = s.subtract(BigInteger.ONE).multiply(t.subtract(BigInteger.ONE));
+        e = BigInteger.probablePrime(bitlength/2, r); 
+         
+	mu=modInverse(BigInteger )
+
+        while (phi.gcd(e).compareTo(BigInteger.ONE) > 0 && e.compareTo(phi) < 0 ) 
+	{ 
+            e.add(BigInteger.ONE); 
+        } 
+ d = e.modInverse(phi);  
+    } 
+
+
+
+
+
+
+
+
+
+//*
+ public RSA(BigInteger e, BigInteger d, BigInteger N) { 
+        this.e = e; 
+        this.d = d; 
+        this.N = N; 
+    } 
+ public static void main (String[] args) throws IOException
+{ 
+        RSA rsa = new RSA(); 
+        DataInputStream in=new DataInputStream(System.in);  
+        String teststring ;
+        System.out.println("Enter the plain text:");
+        teststring=in.readLine();
+        System.out.println("Encrypting String: " + teststring); 
+        System.out.println("String in Bytes: " + bytesToString(teststring.getBytes())); 
+
+        // encrypt 
+
+     byte[] encrypted = rsa.encrypt(teststring.getBytes());                   
+        System.out.println("Encrypted String in Bytes: " + bytesToString(encrypted)); 
+         
+        // decrypt 
+        byte[] decrypted = rsa.decrypt(encrypted);       
+        System.out.println("Decrypted String in Bytes: " +  bytesToString(decrypted)); 
+         
+        System.out.println("Decrypted String: " + new String(decrypted)); 
+         
+    } 
+*//
+
+
+
+
+
+   private static String bytesToString(byte[] encrypted) 
+	{ 
+        String test = ""; 
+        for (byte b : encrypted) 
+	{ 
+            test += Byte.toString(b); 
+        } 
+        return test; 
+   	 } 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
